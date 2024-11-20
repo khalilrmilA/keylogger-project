@@ -1,0 +1,1 @@
+('/home/kali/keylogger-project/build/key+mouselog/PYZ-00.pyz', [])

