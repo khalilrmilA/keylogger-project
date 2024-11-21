@@ -127,3 +127,6 @@ This project uses GMX mail as the email provider. Here’s how to configure and 
 This project is for **educational purposes only**. Unauthorized use of keyloggers is illegal and unethical. Ensure you have permission to deploy this application on any machine.
 
 ---
+## License
+
+This project is licensed under the [GNU General Public License v3.0](LICENSE) - see the LICENSE file for details.
