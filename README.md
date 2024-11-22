@@ -1,7 +1,3 @@
-Here is the complete content you can copy and save as your `README.md` file:
-
----
-
 # Key+Mouse Logger with Email Notifications
 
 This project logs keyboard and mouse activity and sends the logs to an email address every minute. The logs include:  
